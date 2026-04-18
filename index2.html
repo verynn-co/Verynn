@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>German Learning App 🇩🇪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f4f6f8;
+      margin: 0;
+    }
+
+    h1 {
+      background: black;
+      color: white;
+      padding: 15px;
+      margin: 0;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      width: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      background: black;
+      color: white;
+      font-size: 16px;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      margin-top: 10px;
+    }
+
+    .score {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>German Learning 🇩🇪</h1>
+
+<div class="container">
+
+  <div class="card">
+    <h2 id="english">Hello</h2>
+    <button onclick="showGerman()">Show German</button>
+    <h3 id="german"></h3>
+  </div>
+
+  <div class="card">
+    <h2>Quiz</h2>
+    <p id="quizQ">Hello</p>
+    <input id="quizInput" placeholder="Type in German">
+    <br>
+    <button onclick="checkQuiz()">Submit</button>
+    <p id="quizResult"></p>
+    <p class="score">Score: <span id="score">0</span></p>
+  </div>
+
+</div>
+
+<script>
+let words = [
+  {en: "Hello", de: "Hallo"},
+  {en: "Thank you", de: "Danke"},
+  {en: "Yes", de: "Ja"},
+  {en: "No", de: "Nein"},
+  {en: "Good morning", de: "Guten Morgen"}
+];
+
+let current = 0;
+let score = 0;
+
+function showGerman() {
+  document.getElementById("german").innerText = words[current].de;
+}
+
+function loadQuiz() {
+  document.getElementById("quizQ").innerText = words[current].en;
+}
+
+function checkQuiz() {
+  let input = document.getElementById("quizInput").value;
+  let correct = words[current].de;
+
+  if(input.toLowerCase() === correct.toLowerCase()) {
+    document.getElementById("quizResult").innerText = "✅ Correct!";
+    score++;
+  } else {
+    document.getElementById("quizResult").innerText = "❌ " + correct;
+  }
+
+  document.getElementById("score").innerText = score;
+
+  current = (current + 1) % words.length;
+  document.getElementById("quizInput").value = "";
+  loadQuiz();
+}
+
+loadQuiz();
+</script>
+
+</body>
+</html>
